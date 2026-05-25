@@ -142,3 +142,6 @@ Combining low-voltage logic with a 12V pump system required careful wiring and d
 - Move wiring from breadboard to perfboard or PCB
 - Add calibration mode using a button
 - Add timed watering modes (e.g. 30 min, 1 hour, 2 hours)
+
+The full code is available here:
+[View soure Code](Code/Main.ino)
