@@ -148,15 +148,11 @@ Combining low-voltage logic with a 12V pump system required careful wiring and d
 The wiring diagram is available here:
 [View the wiring diagram](Diagrams/Wiring.png)
 
-- The schematic shown in this repository was created in Tinkercad using a generic SPDT relay component because Tinkercad does not provide the exact relay module used in the physical build.
-
-- The real project uses a 5V relay module based on the SRD-05VDC-SL-C relay, which already includes the required transistor driver, flyback diode, and protection circuitry internally.
-
-- Therefore, the diagram represents the relay functionally rather than the exact internal wiring/layout of the physical relay module.
-
-- A DC motor is used in the diagram as a placeholder for the water pump since Tinkercad does not provide a suitable pump component.
-
-- In the real project, the pump is powered using an external outlet power supply routed through the relay module. The battery/power representation in the diagram is only for simulation and visualization purposes.
+### Note on Wiring Diagram
+This wiring diagram was created using Tinkercad for simulation purposes.
+Since Tinkercad does not include all real-world components, some parts are represented using equivalent placeholders (e.g. DC motor for pump, generic relay model).
+The physical build uses an SRD-05VDC-SL-C relay module with built-in driver and protection circuitry.
+The diagram is intended to show system logic and connections rather than an exact physical layout.
 
 ## Code
 The full code is available here:
