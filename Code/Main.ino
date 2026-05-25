@@ -18,7 +18,7 @@ void setup() {
 
 void loop() {
   int elapsedTime = millis() - lastReadTime;
-  if (elapsdTime >= readInterval) {
+  if (elapsedTime >= readInterval) {
     lastReadTime = millis();
     soilMoistureValue = readSoil();
 
