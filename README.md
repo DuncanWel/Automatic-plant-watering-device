@@ -1,26 +1,29 @@
 # Automatic Plant Watering System (Arduino)
 
-A moisture-based irrigation system built with an Arduino that monitors soil moisture and provides feedback for potential automated watering. The system uses calibrated sensor thresholds, noise filtering, and timed measurement cycles to evaluate soil conditions.
+An Arduino-based automatic plant watering system that monitors soil moisture and activates a water pump when the soil becomes dry. The system uses sensor thresholds, noise filtering, and state cycles to evaluate soil conditions and water plants.
 
 ---
 
 ## Project Overview
 
-This project was built to explore embedded systems concepts such as:
+This project was built to learn embedded systems concepts such as:
 - Analog sensor reading
 - Signal filtering and averaging
-- Non-blocking timing with `millis()`
+- Using `millis()` to create non-blocking timers instead of `delay()` when needed
 - Hardware power control
-- Calibration of real-world sensors
+- State machines
 
-The system measures soil moisture every minute and classifies soil conditions from soaked to very dry based on calibrated reference values.
+The system measures soil moisture every minute and converts the sensor readings into a calibrated moisture percentage before classifying the soil as wet or dry.
 
 An LED blinks during each measurement cycle to show when the system is actively reading sensor data.
+
+The circuit includes a button to disable the cycle and reduce power consumption.
 
 ---
 
 ## Features
 
+- Finite state machine loop
 - Timed sensor readings (once every 60 seconds)
 - Noise reduction using averaging (10 samples per reading)
 - Sensor power control (only powered during measurement)
@@ -29,24 +32,10 @@ An LED blinks during each measurement cycle to show when the system is actively 
 
 ---
 
-## Moisture Calibration
+## Moisture Levels & Calibration
 
-The system is calibrated using two reference points:
+During calibration, the sensor reading in the air was measured at 504, while the reading for water was recorded at 270. Sensor readings are converted into a moisture percentage, where 0% represents the calibrated air value and 100% represents the calibrated water value.
 
-| Condition | Value |
-|----------|------|
-| Wet soil (water reference) | ~270 |
-| Dry soil (air reference)   | ~504 |
-
-### Moisture classification ranges:
-
-- Soaked: < 270  
-- Wet: 270 – 347  
-- Damp: 348 – 425  
-- Dry: 426 – 503  
-- Very dry: ≥ 504  
-
-These values are split evenly between the two calibration points.
 
 ---
 
@@ -59,14 +48,13 @@ Every 60 seconds, the system:
 3. Takes 10 readings from the sensor  
 4. Averages the readings  
 5. Powers off the sensor  
-6. Classifies the moisture level  
-7. Prints the result to the Serial Monitor  
+6. Moves on to the next state
 
 ---
 
 ## Hardware Setup
 
-Arduino Uno is connected to:
+The system consists of:
 
 - Soil moisture sensor connected to analog pin A0  
   - Sensor is powered using a digital pin (sensor power control)
@@ -85,8 +73,11 @@ Arduino Uno is connected to:
 
 ## Code Concepts Used
 
+### State machine
+Uses a finite state machine to separate measuring, classifying, watering and standby behavior. This makes the program easier to read, maintain and expand, compared to placing all the logic inside `loop()`.
+
 ### Non-blocking timing
-Uses `millis()` instead of `delay()` to ensure the system runs continuously while still taking readings at fixed intervals.
+Uses `millis()` to schedule timed measurements instead of relying on blocking delays.
 
 ### Noise reduction
 Each measurement is based on the average of 10 analog readings to stabilize sensor output.
@@ -101,9 +92,9 @@ The LED turns on or blinks during measurement cycles to show the system is activ
 
 ## Limitations
 
-- Moisture thresholds are simplified and linearly divided
+- Precalibrated values for wet and dry moisture levels.
+- Moisture thresholds are simplified and split evenly
 - No hysteresis between states, so values near boundaries may switch categories
-- Pump automation logic is not yet implemented (system is currently monitoring only)
 
 ---
 
@@ -119,7 +110,7 @@ Raw sensor values fluctuated, so averaging was needed to stabilize results.
 Switching from delay-based code to millis-based timing was necessary to keep the system responsive.
 
 ### Wiring complexity
-Combining low-voltage logic with a 12V pump system required careful wiring and debugging.
+Combining low-voltage logic with a 12V pump system required new wiring.
 
 ---
 
@@ -127,7 +118,7 @@ Combining low-voltage logic with a 12V pump system required careful wiring and d
 
 - Real sensors require calibration to be useful
 - Averaging improves stability of analog readings
-- millis() is important for non-blocking embedded systems
+- using `millis()` is important for non-blocking embedded systems
 - Powering sensors only when needed improves reliability
 - Hardware debugging is often harder than software debugging
 - System design must consider both code and physical wiring
@@ -136,8 +127,6 @@ Combining low-voltage logic with a 12V pump system required careful wiring and d
 
 ## Future Improvements
 
-- Refactor code into a state machine (IDLE, MEASURE, WATERING, COOLDOWN)
-- Add pump automation with safe runtime limits
 - Add hysteresis to prevent rapid switching near thresholds
 - Move wiring from breadboard to perfboard or PCB
 - Add calibration mode using a button
@@ -156,4 +145,4 @@ The diagram is intended to show system logic and connections rather than an exac
 
 ## Code
 The full code is available here:
-[View soure Code](Code/Main.ino)
+[View source Code](Code/Main.ino)
