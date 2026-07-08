@@ -134,6 +134,9 @@ Combining low-voltage logic with a 12V pump system required new wiring.
 
 ## Diagram and Important Notes About the Diagram
 
+Images of the automatic watering device can be found here:
+[View the images](Diagrams/)
+
 The wiring diagram is available here:
 [View the wiring diagram](Diagrams/Wiring.png)
 
