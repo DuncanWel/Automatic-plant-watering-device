@@ -132,7 +132,7 @@ Combining low-voltage logic with a 12V pump system required new wiring.
 - Add calibration mode using a button
 - Add timed watering modes (e.g. 30 min, 1 hour, 2 hours)
 
-## Diagram and Important Notes About the Diagram
+## Images, Diagram and Important Notes About the Diagram
 
 Images of the automatic watering device can be found here:
 [View the images](Diagrams/)
