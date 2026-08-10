@@ -148,4 +148,4 @@ The diagram is intended to show system logic and connections rather than an exac
 
 ## Code
 The full code is available here:
-[View source Code](Code/Main.ino)
+[View source Code](Code/plant_watering_controller.ino)
